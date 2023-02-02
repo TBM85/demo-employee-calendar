@@ -1,0 +1,27 @@
+@import "../../App";
+
+.Table {
+  border-collapse: collapse;
+  .header-row {
+    background: $bg-dark;
+    border: 1px solid $bg-dark;
+    color: $white;
+    th {
+      padding: 0.35em 0.5em;
+      border-right: 1px solid $border;
+    }
+  }
+  .employee-row {
+    border: 1px solid $border;
+    th {
+      display: flex;
+      min-width: max-content;
+      padding: 0.35em 0.5em;
+      background: $bg-light;
+      img {
+        margin-right: 0.5em;
+        width: 16px;
+      }
+    }
+  }
+}

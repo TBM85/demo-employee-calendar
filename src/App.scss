@@ -1,17 +1,27 @@
+// COLORS
+$bg-light: #e5e5e5;
+$bg-dark: #525763;
+$border: #c5c5c5;
+$black: #282c34;
+$white: #fff;
+$blue: #0092b7;
+$red: #d23927;
+$green: #008c33;
+
 .App {
   text-align: center;
-  width: 100%;
   min-height: 100vh;
+  width: 100%;
 }
 
 .App-header {
-  background-color: #282c34;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(5px + 2vmin);
+  background-color: $black;
   color: white;
+  font-size: calc(5px + 2vmin);
 
   h1 {
     text-transform: capitalize;
