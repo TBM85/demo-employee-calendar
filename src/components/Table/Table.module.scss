@@ -2,13 +2,22 @@
 
 .Table {
   border-collapse: collapse;
-  .header-row {
-    background: $bg-dark;
-    border: 1px solid $bg-dark;
-    color: $white;
-    th {
-      padding: 0.35em 0.5em;
-      border-right: 1px solid $border;
+  thead {
+    background: #e5e5e5;
+    .header-row {
+      background: $bg-dark;
+      border: 1px solid $bg-dark;
+      color: $white;
+      th {
+        padding: 0.35em 0.5em;
+        border-right: 1px solid $border;
+      }
+    }
+    .header-row-days {
+      .days {
+        border-right: 1px solid $border;
+        border-left: 1px solid $border;
+      }
     }
   }
   .employee-row {

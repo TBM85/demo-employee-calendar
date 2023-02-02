@@ -1,5 +1,6 @@
 import user from "../../assets/icons/user.svg";
 import {
+  getDay,
   getMonth,
   getNoEqualItemsArray,
   getYear,
@@ -17,6 +18,10 @@ const Table = (props: {
     return getYearMonthDate(fecha);
   });
 
+  const datesArr = calendar.map(({ fecha }) => {
+    return fecha;
+  });
+
   const yearMonthNoEqualItemsArr = getNoEqualItemsArray(yearMonthArr);
 
   return (
@@ -28,6 +33,25 @@ const Table = (props: {
           {yearMonthNoEqualItemsArr.map((month, index) => (
             <th scope="col" key={`month-year-${index}`}>
               <span>{`${getMonth(month)} ${getYear(month)}`}</span>
+            </th>
+          ))}
+        </tr>
+        <tr className={classes["header-row-days"]}>
+          <td></td>
+          <td></td>
+          {yearMonthNoEqualItemsArr.map((month, index) => (
+            <th key={`days-${index}`} className={classes["days"]}>
+              <table>
+                <thead>
+                  <tr>
+                    {datesArr.filter((date) => getYearMonthDate(date) === month).map((date, index2) => (
+                      <th key={`day-${index2}`}>
+                        <span>{getDay(date)}</span>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+              </table>
             </th>
           ))}
         </tr>

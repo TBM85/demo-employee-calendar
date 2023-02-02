@@ -35,6 +35,10 @@ export const getMonth = (num: number) => {
   }
 };
 
+export const getDay = (num: number) => {
+  return Number(num.toString().slice(6, 8));
+};
+
 export const getYearMonthDate = (num: number) => {
   return Number(num.toString().slice(0, 6));
 };
