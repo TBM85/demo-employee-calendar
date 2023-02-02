@@ -40,6 +40,9 @@
   .red-box {
     @include box($red, not-allowed);
   }
+  .green-box {
+    @include box($green, pointer);
+  }
   .gray-box {
     @include box($white, pointer);
     border: $border;

@@ -46,3 +46,17 @@ export const getYearMonthDate = (num: number) => {
 export const getNoEqualItemsArray = (arr: number[]) => {
   return Array.from(new Set(arr));
 };
+
+export const getClassName = (str: string) => {
+  switch (str) {
+    case "F":
+      return "blue-box";
+    case "S":
+      return "red-box";
+    case "V":
+      return "green-box";
+    case "":
+    default:
+      return "gray-box";
+  }
+};

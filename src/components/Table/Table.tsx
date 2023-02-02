@@ -1,5 +1,6 @@
 import user from "../../assets/icons/user.svg";
 import {
+  getClassName,
   getDay,
   getMonth,
   getNoEqualItemsArray,
@@ -44,11 +45,13 @@ const Table = (props: {
               <table>
                 <thead>
                   <tr>
-                    {datesArr.filter((date) => getYearMonthDate(date) === month).map((date, index2) => (
-                      <th key={`day-${index2}`}>
-                        <span>{getDay(date)}</span>
-                      </th>
-                    ))}
+                    {datesArr
+                      .filter((date) => getYearMonthDate(date) === month)
+                      .map((date, index2) => (
+                        <th key={`day-${index2}`}>
+                          <span>{getDay(date)}</span>
+                        </th>
+                      ))}
                   </tr>
                 </thead>
               </table>
@@ -71,17 +74,17 @@ const Table = (props: {
                 <table>
                   <tbody>
                     <tr>
-                    {calendar.filter((item) => getYearMonthDate(item.fecha) === month).map(({ tipoId }, index2) => (
-                        <td key={`box-${index2}`}>
-                        {tipoId === "F" ? (
-                          <span className={classes["blue-box"]}></span>
-                        ) : tipoId === "S" ? (
-                          <span className={classes["red-box"]}></span>
-                        ) : (
-                          <span className={classes["gray-box"]}></span>
-                        )}
-                        </td>
-                      ))}
+                      {calendar
+                        .filter(
+                          (item) => getYearMonthDate(item.fecha) === month
+                        )
+                        .map(({ tipoId }, index2) => (
+                          <td key={`box-${index2}`}>
+                            <span
+                              className={classes[getClassName(tipoId)]}
+                            ></span>
+                          </td>
+                        ))}
                     </tr>
                   </tbody>
                 </table>
