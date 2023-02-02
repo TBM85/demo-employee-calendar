@@ -66,6 +66,27 @@ const Table = (props: {
             <td>
               <span>{total_holidays}</span>
             </td>
+            {yearMonthNoEqualItemsArr.map((month, index) => (
+              <td key={`boxes-${index}`} className={classes["days"]}>
+                <table>
+                  <tbody>
+                    <tr>
+                    {calendar.filter((item) => getYearMonthDate(item.fecha) === month).map(({ tipoId }, index2) => (
+                        <td key={`box-${index2}`}>
+                        {tipoId === "F" ? (
+                          <span className={classes["blue-box"]}></span>
+                        ) : tipoId === "S" ? (
+                          <span className={classes["red-box"]}></span>
+                        ) : (
+                          <span className={classes["gray-box"]}></span>
+                        )}
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            ))}
           </tr>
         ))}
       </tbody>

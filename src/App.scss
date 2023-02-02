@@ -1,12 +1,23 @@
+// VARIABLES
+$border: 1px solid #c5c5c5;
+
 // COLORS
 $bg-light: #e5e5e5;
 $bg-dark: #525763;
-$border: #c5c5c5;
 $black: #282c34;
 $white: #fff;
 $blue: #0092b7;
 $red: #d23927;
 $green: #008c33;
+
+// MIXINS 
+@mixin box($bg-color, $cursor) {
+  background-color: $bg-color;
+  padding: 0 0.6em;
+  margin: 0 0.1em;
+  cursor: $cursor;
+  border-radius: 0.25em;
+}
 
 .App {
   text-align: center;

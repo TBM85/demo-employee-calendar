@@ -6,22 +6,16 @@
     background: #e5e5e5;
     .header-row {
       background: $bg-dark;
-      border: 1px solid $bg-dark;
+      border: $border;
       color: $white;
       th {
         padding: 0.35em 0.5em;
-        border-right: 1px solid $border;
-      }
-    }
-    .header-row-days {
-      .days {
-        border-right: 1px solid $border;
-        border-left: 1px solid $border;
+        border-right: $border;
       }
     }
   }
   .employee-row {
-    border: 1px solid $border;
+    border: $border;
     th {
       display: flex;
       min-width: max-content;
@@ -32,5 +26,22 @@
         width: 16px;
       }
     }
+  }
+  .days {
+    border-right: $border;
+    border-left: $border;
+    th {
+      width: 24px;
+    }
+  }
+  .blue-box {
+    @include box($blue, not-allowed);
+  }
+  .red-box {
+    @include box($red, not-allowed);
+  }
+  .gray-box {
+    @include box($white, pointer);
+    border: $border;
   }
 }
