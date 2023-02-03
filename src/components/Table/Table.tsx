@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import user from "../../assets/icons/user.svg";
 import {
   getClassName,
@@ -14,16 +15,39 @@ const Table = (props: {
   calendar: Array<CalendarProps>;
 }) => {
   const { employees, calendar } = props;
+  const [calendarData, setCalendarData] = useState(calendar);
+  const [yearMonthArr, setYearMonthArr] = useState<number[]>([]);
+  const [datesArr, setDatesArr] = useState<number[]>([]);
 
-  const yearMonthArr = calendar.map(({ fecha }) => {
-    return getYearMonthDate(fecha);
-  });
+  const handleClick = (index: number, tipoDs: string) => {
+    let newArr = [...calendarData];
 
-  const datesArr = calendar.map(({ fecha }) => {
-    return fecha;
-  });
+    if (tipoDs === "Dia Laborable") {
+      newArr[index].tipoId = "V";
+      newArr[index].tipoDs = "Vacaciones";
+      newArr[index].color = "VERDE";
+    } else if (tipoDs === "Vacaciones") {
+      newArr[index].tipoId = "";
+      newArr[index].tipoDs = "Dia Laborable";
+      newArr[index].color = "BLANCO";
+    }
 
-  const yearMonthNoEqualItemsArr = getNoEqualItemsArray(yearMonthArr);
+    setCalendarData(newArr);
+  };
+
+  useEffect(() => {
+    setYearMonthArr(
+      calendarData.map(({ fecha }) => {
+        return getYearMonthDate(fecha);
+      })
+    );
+
+    setDatesArr(
+      calendarData.map(({ fecha }) => {
+        return fecha;
+      })
+    );
+  }, [calendarData]);
 
   return (
     <table className={classes.Table}>
@@ -31,7 +55,7 @@ const Table = (props: {
         <tr className={classes["header-row"]}>
           <th>Employees</th>
           <th>Days</th>
-          {yearMonthNoEqualItemsArr.map((month, index) => (
+          {getNoEqualItemsArray(yearMonthArr).map((month, index) => (
             <th scope="col" key={`month-year-${index}`}>
               <span>{`${getMonth(month)} ${getYear(month)}`}</span>
             </th>
@@ -40,7 +64,7 @@ const Table = (props: {
         <tr className={classes["header-row-days"]}>
           <td></td>
           <td></td>
-          {yearMonthNoEqualItemsArr.map((month, index) => (
+          {getNoEqualItemsArray(yearMonthArr).map((month, index) => (
             <th key={`days-${index}`} className={classes["days"]}>
               <table>
                 <thead>
@@ -69,22 +93,31 @@ const Table = (props: {
             <td>
               <span>{total_holidays}</span>
             </td>
-            {yearMonthNoEqualItemsArr.map((month, index) => (
+            {getNoEqualItemsArray(yearMonthArr).map((month, index) => (
               <td key={`boxes-${index}`} className={classes["days"]}>
                 <table>
                   <tbody>
                     <tr>
-                      {calendar
+                      {calendarData
                         .filter(
-                          (item) => getYearMonthDate(item.fecha) === month
+                          ({ fecha }) => getYearMonthDate(fecha) === month
                         )
-                        .map(({ tipoId }, index2) => (
-                          <td key={`box-${index2}`}>
-                            <span
-                              className={classes[getClassName(tipoId)]}
-                            ></span>
-                          </td>
-                        ))}
+                        .map(({ tipoId, tipoDs, color }, index2) => {
+                          return (
+                            <td
+                              key={`box-${index2}`}
+                              onClick={() =>
+                                tipoId === "" || tipoId === "V"
+                                  ? handleClick(index2, tipoDs)
+                                  : undefined
+                              }
+                            >
+                              <span
+                                className={classes[getClassName(color)]}
+                              ></span>
+                            </td>
+                          );
+                        })}
                     </tr>
                   </tbody>
                 </table>

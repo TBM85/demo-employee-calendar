@@ -49,13 +49,13 @@ export const getNoEqualItemsArray = (arr: number[]) => {
 
 export const getClassName = (str: string) => {
   switch (str) {
-    case "F":
+    case "AZUL":
       return "blue-box";
-    case "S":
+    case "ROJO":
       return "red-box";
-    case "V":
+    case "VERDE":
       return "green-box";
-    case "":
+    case "BLANCO":
     default:
       return "gray-box";
   }
