@@ -93,10 +93,10 @@ const Table = (props: {
 
   return (
     <table className={classes.Table}>
-      <thead>
+      <thead className={classes["fixed-row"]}>
         <tr className={classes["header-row"]}>
-          <th>Employees</th>
-          <th>Days</th>
+          <th></th>
+          <th></th>
           {getNoEqualItemsArray(yearMonthArr).map((month, index) => (
             <th scope="col" key={`month-year-${index}`}>
               <span>{`${getMonth(month)} ${getYear(month)}`}</span>
@@ -104,8 +104,8 @@ const Table = (props: {
           ))}
         </tr>
         <tr className={classes["header-row-days"]}>
-          <td></td>
-          <td></td>
+          <th>Employees</th>
+          <th>Holidays</th>
           {getNoEqualItemsArray(yearMonthArr).map((month, index) => (
             <th key={`days-${index}`} className={classes["days"]}>
               <table>

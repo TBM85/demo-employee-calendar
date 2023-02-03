@@ -9,7 +9,9 @@ function App() {
       <header className="App-header">
         <h1>employee calendar</h1>
       </header>
-      <Table employees={employees.data} calendar={calendar.datos} />
+      <main className="App-main">
+        <Table employees={employees.data} calendar={calendar.datos} />
+      </main>
     </div>
   );
 }

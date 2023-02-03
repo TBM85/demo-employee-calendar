@@ -3,13 +3,20 @@
 .Table {
   border-collapse: collapse;
   thead {
-    background: #e5e5e5;
     .header-row {
-      background: $bg-dark;
       border: $border;
       color: $white;
       th {
-        padding: 0.35em 0.75em;
+        padding: 0.35em 0.75em !important;
+        border-right: $border;
+        background: $bg-dark;
+        &:nth-child(1) {
+          border-right: none !important;
+        }
+      }
+    }
+    .header-row-days {
+      th:nth-child(1) {
         border-right: $border;
       }
     }
@@ -18,9 +25,11 @@
     border: $border;
     th {
       display: flex;
+      width: 12em;
       min-width: max-content;
       padding: 0.35em 0.5em;
       background: $bg-light;
+      border-right: $border;
       img {
         margin-right: 0.5em;
         width: 16px;
@@ -31,8 +40,17 @@
     border-right: $border;
     border-left: $border;
     th {
+      border: none !important;
       width: 25px;
     }
+  }
+  .fixed-row {
+    background: $bg-light;
+    position: sticky;
+    overflow: hidden;
+    z-index: 2;
+    left: 0;
+    top: 0;
   }
   .blue-box {
     @include box($blue, not-allowed);
