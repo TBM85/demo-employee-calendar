@@ -22,18 +22,30 @@ const Table = (props: {
   const handleClick = (index: number, tipoDs: string) => {
     let newArr = [...calendarData];
 
-    if (tipoDs === "Dia Laborable") {
-      newArr[index].tipoId = "V";
-      newArr[index].tipoDs = "Vacaciones";
-      newArr[index].color = "VERDE";
-    } else if (tipoDs === "Vacaciones") {
-      newArr[index].tipoId = "";
-      newArr[index].tipoDs = "Dia Laborable";
-      newArr[index].color = "BLANCO";
-    }
+    try {
+      if (tipoDs === "Dia Laborable") {
+        newArr[index].tipoId = "V";
+        newArr[index].tipoDs = "Vacaciones";
+        newArr[index].color = "VERDE";
+      } else if (tipoDs === "Vacaciones") {
+        newArr[index].tipoId = "";
+        newArr[index].tipoDs = "Dia Laborable";
+        newArr[index].color = "BLANCO";
+      }
 
-    setCalendarData(newArr);
+      setCalendarData(newArr);
+      window.localStorage.setItem("newCalendarArr", JSON.stringify(newArr));
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    const dataArr = window.localStorage.getItem('newCalendarArr');
+    if (dataArr) {
+      setCalendarData(JSON.parse(dataArr));
+    }
+  }, []);
 
   useEffect(() => {
     setYearMonthArr(
