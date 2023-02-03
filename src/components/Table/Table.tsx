@@ -18,9 +18,13 @@ const Table = (props: {
   const [calendarData, setCalendarData] = useState(calendar);
   const [yearMonthArr, setYearMonthArr] = useState<number[]>([]);
   const [datesArr, setDatesArr] = useState<number[]>([]);
+  const [typeDaysArr, setTypeDaysArr] = useState<string[]>([]);
+  const [holidays, setHolidays] = useState<string>("0");
 
-  const handleClick = (index: number, tipoDs: string) => {
+  const handleClick = (fecha: number, tipoDs: string) => {
     let newArr = [...calendarData];
+
+    const index = newArr.findIndex((item) => item.fecha === fecha);
 
     try {
       if (tipoDs === "Dia Laborable") {
@@ -41,11 +45,31 @@ const Table = (props: {
   };
 
   useEffect(() => {
-    const dataArr = window.localStorage.getItem('newCalendarArr');
-    if (dataArr) {
-      setCalendarData(JSON.parse(dataArr));
+    const dataCalendarArr = window.localStorage.getItem("newCalendarArr");
+    if (dataCalendarArr) {
+      setCalendarData(JSON.parse(dataCalendarArr));
     }
   }, []);
+
+  useEffect(() => {
+    try {
+      const totalHolidays = typeDaysArr.filter((item) => item === "V").length;
+      const displayTotalHolidays =
+        totalHolidays < 10 ? `0${totalHolidays}` : totalHolidays;
+      setHolidays(displayTotalHolidays.toString());
+      window.localStorage.setItem(
+        "newTotalHolidays",
+        JSON.stringify(displayTotalHolidays)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+    const holidayDataArr = window.localStorage.getItem("newTotalHolidays");
+    if (holidayDataArr) {
+      setHolidays(JSON.parse(holidayDataArr));
+    }
+  }, [typeDaysArr]);
 
   useEffect(() => {
     setYearMonthArr(
@@ -57,6 +81,12 @@ const Table = (props: {
     setDatesArr(
       calendarData.map(({ fecha }) => {
         return fecha;
+      })
+    );
+
+    setTypeDaysArr(
+      calendarData.map(({ tipoId }) => {
+        return tipoId;
       })
     );
   }, [calendarData]);
@@ -103,7 +133,7 @@ const Table = (props: {
               <span>{`${first_name} ${last_name}`}</span>
             </th>
             <td>
-              <span>{total_holidays}</span>
+              <span>{`${holidays} / ${total_holidays}`}</span>
             </td>
             {getNoEqualItemsArray(yearMonthArr).map((month, index) => (
               <td key={`boxes-${index}`} className={classes["days"]}>
@@ -114,18 +144,28 @@ const Table = (props: {
                         .filter(
                           ({ fecha }) => getYearMonthDate(fecha) === month
                         )
-                        .map(({ tipoId, tipoDs, color }, index2) => {
+                        .map(({ fecha, tipoId, tipoDs, color }, index2) => {
                           return (
                             <td
                               key={`box-${index2}`}
                               onClick={() =>
-                                tipoId === "" || tipoId === "V"
-                                  ? handleClick(index2, tipoDs)
+                                Number(holidays) < 22
+                                  ? tipoId === "" || tipoId === "V"
+                                    ? handleClick(fecha, tipoDs)
+                                    : undefined
+                                  : Number(holidays) >= 22
+                                  ? tipoId === "V"
+                                    ? handleClick(fecha, tipoDs)
+                                    : undefined
                                   : undefined
                               }
                             >
                               <span
-                                className={classes[getClassName(color)]}
+                                className={`${classes[getClassName(color)]} ${
+                                  tipoId === "" && Number(holidays) >= 22
+                                    ? classes["no-allowed"]
+                                    : ""
+                                }`}
                               ></span>
                             </td>
                           );
