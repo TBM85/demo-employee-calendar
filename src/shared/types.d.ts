@@ -11,3 +11,11 @@ interface CalendarProps {
   tipoDs: string;
   color: string;
 }
+
+interface TableProps {
+  employees: Array<EmployeesProps>;
+  calendar: Array<CalendarProps>[];
+  yearMonthArr: number[];
+  datesArr: number[];
+  onHandleClick: Function;
+}

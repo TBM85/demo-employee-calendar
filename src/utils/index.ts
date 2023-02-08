@@ -60,3 +60,12 @@ export const getClassName = (str: string) => {
       return "gray-box";
   }
 };
+
+export const getArrayGroup = (arr: Array<CalendarProps>, n: number) => {
+  let arrayGroup: Array<CalendarProps>[] = [];
+  for (let i = 0; i <= n; i++) {
+    arrayGroup.push(arr);
+  }
+
+  return arrayGroup;
+};
