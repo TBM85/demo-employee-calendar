@@ -1,0 +1,19 @@
+@import "../../App";
+
+.Box {
+  .blue-box {
+    @include box($blue, not-allowed);
+  }
+  .red-box {
+    @include box($red, not-allowed);
+  }
+  .green-box {
+    @include box($green, pointer);
+  }
+  .gray-box {
+    @include box($white, pointer);
+  }
+  .no-allowed {
+    cursor: not-allowed;
+  }
+}

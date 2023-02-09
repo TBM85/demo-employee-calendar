@@ -17,8 +17,11 @@ $green: #008c33;
   padding: 0 0.6em;
   margin: 0 0.1em;
   cursor: $cursor;
-  border: 1px solid #c5c5c5;
+  border: $border;
   border-radius: $radius;
+  @media (max-width: 767px) {
+    padding: 0.4em 1em;
+  }
 }
 
 @mixin display($justify, $items) {

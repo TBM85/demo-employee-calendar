@@ -26,3 +26,13 @@ interface ModalProps {
   buttonText: string;
   onCloseModal: Function;
 }
+
+interface BoxProps {
+  vacationAmount: number;
+  index: number;
+  onHandleClick: Function;
+  fecha: number;
+  tipoId: string;
+  tipoDs: string;
+  color: string;
+}
