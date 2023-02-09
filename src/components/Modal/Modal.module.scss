@@ -1,0 +1,45 @@
+@import "../../App";
+
+.Backdrop {
+  background-color: $black;
+  opacity: 0.9;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+.ModalContainer {
+  @include display(center, unset);
+  width: 100%;
+  position: absolute;
+  top: 30%;
+  z-index: 2;
+  .Modal {
+    border: $border;
+    background: $white;
+    border-radius: $radius;
+    width: 100%;
+    max-width: 600px;
+    padding: 1em;
+    .modal-header {
+      @include display(space-between, flex-start);
+      padding: 0 1em;
+    }
+    .modal-body {
+      padding: 0 1em 1em;
+      font-size: 1.1em;
+    }
+    button {
+      padding: 0.75em 1.5em;
+      border-radius: 0.25em;
+      background-color: $black;
+      color: $white;
+      border: none;
+      margin: 1em;
+      float: right;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 700;
+    }
+  }
+}

@@ -2,6 +2,8 @@
 
 .Table {
   border-collapse: collapse;
+  position: absolute;
+  left: 0;
   thead {
     .header-row {
       border: $border;

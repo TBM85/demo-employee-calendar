@@ -1,5 +1,6 @@
 // VARIABLES
 $border: 1px solid #c5c5c5;
+$radius: 0.25em;
 
 // COLORS
 $bg-light: #e5e5e5;
@@ -17,7 +18,13 @@ $green: #008c33;
   margin: 0 0.1em;
   cursor: $cursor;
   border: 1px solid #c5c5c5;
-  border-radius: 0.25em;
+  border-radius: $radius;
+}
+
+@mixin display($justify, $items) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $items;
 }
 
 .App {
@@ -51,4 +58,5 @@ $green: #008c33;
   bottom: 0;
   left: 0;
   right: 0;
+  @include display(center, unset);
 }

@@ -4,6 +4,7 @@ import calendar from "./data/calendar.json";
 import Table from "./components/Table/Table";
 import { useEffect, useState } from "react";
 import { getArrayGroup, getYearMonthDate } from "./utils";
+import Modal from "./components/Modal/Modal";
 
 function App() {
   const [calendarData, setCalendarData] = useState<Array<CalendarProps>[]>(
@@ -31,8 +32,16 @@ function App() {
   );
 
   const [isInitialData, setIsInitialData] = useState<boolean>(true);
+  const [vacationAmount, setVacationAmount] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [employeeName, setEmployeeName] = useState<string>();
 
-  // Replace selected day values when day is clicked
+  // Close the modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Replace selected day values and total vacation amount when day is clicked
   const handleClick = (fecha: number, tipoDs: string, id: number) => {
     // CALENDAR DATA
     let calendarArr: Array<CalendarProps>[] = [...calendarData];
@@ -59,12 +68,22 @@ function App() {
 
     // EMPLOYEES DATA
     const employeesArr: Array<EmployeesProps> = [...employeesData];
-    const totalHolidays = calendarArr[id].filter(
+    const totalVacationDays = calendarArr[id].filter(
       (item) => item.tipoId === "V"
-    ).length;
+    );
+
+    const totalVacationDaysAmount = totalVacationDays.length;
 
     try {
-      employeesArr[id].total_holidays = totalHolidays;
+      employeesArr[id].total_holidays = totalVacationDaysAmount;
+
+      setVacationAmount(totalVacationDaysAmount);
+
+      if (totalVacationDaysAmount === 22) {
+        setEmployeeName(
+          `${employeesArr[id].first_name} ${employeesArr[id].last_name}`
+        );
+      }
 
       // Store employeesData data in localStorage
       localStorage.setItem("newEmployeesArr", JSON.stringify(employeesData));
@@ -96,6 +115,13 @@ function App() {
     setIsInitialData(false);
   }, []);
 
+  // Open modal if the employee has 22 days of vacation
+  useEffect(() => {
+    if (vacationAmount === 22) {
+      setIsModalOpen(true);
+    }
+  }, [vacationAmount]);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -109,6 +135,14 @@ function App() {
           datesArr={datesArr}
           onHandleClick={handleClick}
         />
+        {isModalOpen && (
+          <Modal
+            onCloseModal={handleCloseModal}
+            title="Vacation completed!"
+            content={`${employeeName} has ${vacationAmount} days of vacation`}
+            buttonText="Cancel"
+          />
+        )}
       </main>
     </div>
   );

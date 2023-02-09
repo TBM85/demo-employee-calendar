@@ -19,3 +19,10 @@ interface TableProps {
   datesArr: number[];
   onHandleClick: Function;
 }
+
+interface ModalProps {
+  title: string;
+  content: string;
+  buttonText: string;
+  onCloseModal: Function;
+}
