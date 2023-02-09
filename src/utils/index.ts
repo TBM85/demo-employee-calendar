@@ -53,6 +53,8 @@ export const getClassName = (str: string) => {
       return "blue-box";
     case "ROJO":
       return "red-box";
+    case "AMARILLO":
+      return "yellow-box";
     case "VERDE":
       return "green-box";
     case "BLANCO":

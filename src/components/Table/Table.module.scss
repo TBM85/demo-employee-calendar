@@ -5,6 +5,11 @@
   .body-col-first span {
     width: max-content;
   }
+  .header-row th:nth-child(2),
+  .header-col-second,
+  .body-col-second {
+    left: 11.5em;
+  }
   .days th {
     width: 25px;
   }
@@ -14,6 +19,11 @@
     height: 2.25em;
     align-items: center;
   }
+  .header-row th:nth-child(2),
+  .header-col-second,
+  .body-col-second {
+    left: 7.5em;
+  }
   .days th {
     width: 40px;
   }
@@ -22,6 +32,11 @@
   .body-col-first img {
     display: none;
   }
+  .header-row th:nth-child(2),
+  .header-col-second,
+  .body-col-second {
+    left: 6em;
+  }
 }
 
 .Table {
@@ -29,15 +44,19 @@
   position: absolute;
   left: 0;
   thead {
+    box-shadow: 0px 10px 5px -1px rgba(0,0,0,0.1);
     .header-row {
-      border: $border;
       color: $white;
       th {
         padding: 0.35em 0.75em !important;
         border-right: $border;
-        background: $bg-dark;
         &:nth-child(1) {
           border-right: none !important;
+          left: 0;
+        }
+        &:nth-child(1),
+        &:nth-child(2) {
+          background: $bg-dark !important;
         }
       }
     }
@@ -52,15 +71,25 @@
     }
   }
   .header-col-first,
-  .body-col-first {
-    display: flex;
-    min-width: min-content;
+  .header-col-second {
+    background: $bg-dark !important;
+  }
+  .header-col-second,
+  .body-col-second {
     background: $bg-light;
-    border-right: $border;
-    span {
-      margin-left: 0.25em;
-      text-align: left;
-      flex-grow: 1;
+  }
+  .header-col-first,
+  .body-col-first {
+    background: $bg-light;
+    text-align: left;
+    left: 0 !important;
+    .body-col-first-content {
+      display: flex !important;
+      span {
+        margin-left: 0.25em;
+        text-align: left;
+        flex-grow: 1;
+      }
     }
   }
   .header-col-first,
@@ -71,8 +100,7 @@
   }
   .body-col-second {
     span {
-      display: flex;
-      justify-content: center;
+      @include display(center, unset);
       flex-grow: 1;
       width: max-content;
     }
@@ -85,11 +113,15 @@
     }
   }
   .fixed-row {
-    background: $bg-light;
+    background: $bg-dark;
+    color: $white;
     position: sticky;
     overflow: hidden;
     z-index: 2;
     left: 0;
     top: 0;
+  }
+  .fixed-col {
+    position: sticky;
   }
 }

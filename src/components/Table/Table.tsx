@@ -19,8 +19,8 @@ const Table = ({
   <table className={classes.Table}>
     <thead className={classes["fixed-row"]}>
       <tr className={classes["header-row"]}>
-        <th></th>
-        <th></th>
+        <th className={classes["fixed-col"]}></th>
+        <th className={classes["fixed-col"]}></th>
         {getNoEqualItemsArray(yearMonthArr).map((month, index) => (
           <th scope="col" key={`month-year-${index}`}>
             <span>{`${getMonth(month)} ${getYear(month)}`}</span>
@@ -28,8 +28,8 @@ const Table = ({
         ))}
       </tr>
       <tr className={classes["header-row-days"]}>
-        <th className={classes["header-col-first"]}>Employees</th>
-        <th className={classes["header-col-second"]}>Days</th>
+        <th className={`${classes["header-col-first"]} ${classes["fixed-col"]}`}>Employees</th>
+        <th className={`${classes["header-col-second"]} ${classes["fixed-col"]}`}>Days</th>
         {getNoEqualItemsArray(yearMonthArr).map((month, index) => (
           <th key={`days-${index}`} className={classes["days"]}>
             <table>
@@ -52,11 +52,13 @@ const Table = ({
     <tbody>
       {employees.map(({ id, first_name, last_name, total_holidays }, index) => (
         <tr className={classes["employee-row"]} key={`employee-row-${id}`}>
-          <th className={classes["body-col-first"]} scope="row">
-            <img src={user} alt="User" />
-            <span>{`${first_name} ${last_name}`}</span>
+          <th className={`${classes["body-col-first"]} ${classes["fixed-col"]}`} scope="row">
+            <div className={classes["body-col-first-content"]}>
+              <img src={user} alt="User" />
+              <span>{`${first_name} ${last_name}`}</span>
+            </div>
           </th>
-          <td className={classes["body-col-second"]}>
+          <td className={`${classes["body-col-second"]} ${classes["fixed-col"]}`}>
             <span>{`${
               total_holidays < 10 ? `0${total_holidays}` : total_holidays
             } / 22`}</span>

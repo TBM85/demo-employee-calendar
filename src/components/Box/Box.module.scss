@@ -7,6 +7,9 @@
   .red-box {
     @include box($red, not-allowed);
   }
+  .yellow-box {
+    @include box($yellow, not-allowed);
+  }
   .green-box {
     @include box($green, pointer);
   }
