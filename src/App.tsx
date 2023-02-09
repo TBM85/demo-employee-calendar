@@ -30,9 +30,11 @@ function App() {
     })
   );
 
+  const [isInitialData, setIsInitialData] = useState<boolean>(true);
+
   // Replace selected day values when day is clicked
   const handleClick = (fecha: number, tipoDs: string, id: number) => {
-    // EMPLOYEES DATA
+    // CALENDAR DATA
     let calendarArr: Array<CalendarProps>[] = [...calendarData];
     const index = calendarArr[id].findIndex((item) => item.fecha === fecha);
 
@@ -73,8 +75,11 @@ function App() {
 
   // Store calendar data in localStorage whenever calendarData changes
   useEffect(() => {
+    if (isInitialData && localStorage.length !== 0) {
+      return;
+    }
     localStorage.setItem("newCalendarArr", JSON.stringify(calendarData));
-  }, [calendarData]);
+  }, [calendarData, isInitialData]);
 
   // Retrieve the value of "newCalendarArr" and "newEmployeesArr" key from the local storage
   useEffect(() => {
@@ -87,6 +92,8 @@ function App() {
     if (holidayDataArr) {
       setEmployeesData(JSON.parse(holidayDataArr));
     }
+
+    setIsInitialData(false);
   }, []);
 
   return (
