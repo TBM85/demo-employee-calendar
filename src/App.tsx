@@ -5,6 +5,7 @@ import Table from "./components/Table/Table";
 import { useEffect, useState } from "react";
 import { getArrayGroup, getYearMonthDate } from "./utils";
 import Modal from "./components/Modal/Modal";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [calendarData, setCalendarData] = useState<Array<CalendarProps>[]>(
@@ -144,6 +145,7 @@ function App() {
           />
         )}
       </main>
+      <Footer />
     </div>
   );
 }
